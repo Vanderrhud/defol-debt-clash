@@ -1,4 +1,4 @@
-# 📜 Game Design Document (GDD): Project Artemis
+# 📜 Game Design Document (GDD): DEFOL: Debt Clash
 
 ## 1. Visi Game
 Game fighting 2D mobile bertempo arcade yang menggabungkan keseriusan estetika cyberpunk dengan kekonyolan jurus *over-the-top* (OTT). Pertarungan fokus pada positioning, timing combo sederhana, dan eksploitasi bar *Bunga Meter*.

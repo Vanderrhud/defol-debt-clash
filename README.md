@@ -1,14 +1,15 @@
-# 🎮 Project Artemis: Debt Eraser Clash
+# 🎮 DEFOL: Debt Clash
 
 > **2D Action Fighting Game Absurd-Komedi Cyberpunk di Mobile & Tablet.**
 
 ---
 
 ## 📌 Quick Overview
+* **Title:** DEFOL: Debt Clash
 * **Genre:** 2D 1v1 Action Fighter / Arcade Brawler
 * **Platform:** Mobile & Tablet (Touchscreen controls)
 * **Setting:** Neo-Istanbul 2088 (Dikuasai oleh **Bank Turki Megacorp**)
-* **Premis:** Suku bunga kredit bionik melonjak 9000%. Bank Turki menyelenggarakan turnamen tarung siaran langsung *"Debt Eraser Clash"*. Pemenang mendapatkan pemutihan hutang 100% + voucher kebab seumur hidup. Yang kalah, organ bioniknya disita.
+* **Premis:** Suku bunga kredit bionik melonjak 9000%. Bank Turki menyelenggarakan turnamen tarung siaran langsung *"DEFOL: Debt Clash"*. Pemenang mendapatkan pemutihan hutang 100% + voucher kebab seumur hidup. Yang kalah, organ bioniknya disita.
 * **Tone:** Komedi Absurd x Over-the-Top (OTT) Action.
 
 ---
@@ -24,4 +25,4 @@
 ---
 
 ## 🔗 External Links
-* **Notion Hub:** [Game Artemis: Debt Eraser (GDD & Hub)](https://app.notion.com/p/Game-Artemis-Debt-Eraser-GDD-Hub-3cc77ea3e81a813fab44e24cf9c550de)
+* **Notion Hub:** [DEFOL: Debt Clash (GDD & Hub)](https://app.notion.com/p/DEFOL-Debt-Clash-GDD-Hub-3cc77ea3e81a813fab44e24cf9c550de)
