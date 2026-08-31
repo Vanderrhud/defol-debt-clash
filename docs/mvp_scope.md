@@ -6,7 +6,7 @@
 
 ## Termasuk
 
-- Godot 4 client Android.
+- Phaser 3 webapp client
 - Satu arena placeholder.
 - Satu avatar universal; Osman menjadi identitas pertama setelah gameplay stabil.
 - Private room dengan kode.

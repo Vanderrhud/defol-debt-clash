@@ -44,6 +44,14 @@ Status: Accepted
 Keputusan: gameplay offline/simulasi diuji lebih dulu, lalu server private room.
 Alasan: jaringan menambah kompleksitas dan tidak boleh menyamarkan masalah combat dasar.
 
+## D-005 — Prototype webapp sebelum Android native
+
+Status: Accepted
+Keputusan: client prototype dibuat sebagai Phaser 3 webapp dengan Node.js + WebSocket; Godot/Android native ditunda.
+Alasan: hanya tersedia VPS dan HP, Node.js sudah tersedia, dan webapp dapat diuji langsung melalui browser tanpa Android SDK/JDK.
+Dampak: MVP diuji melalui browser Android; packaging APK dievaluasi setelah gameplay dan multiplayer stabil.
+Cara verifikasi: dua HP dapat membuka subdomain, masuk private room, dan menyelesaikan match.
+
 ## Open questions
 
 - Apakah nama Bank Turki dipertahankan?

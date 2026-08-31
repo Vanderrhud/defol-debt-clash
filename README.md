@@ -6,12 +6,12 @@
 
 Project ini masih berada pada tahap **desain dan persiapan prototype**. Belum ada game playable di repository ini.
 
-- Target perangkat: Android
-- Engine client: Godot 4 (gratis)
+- Engine/client prototype: Phaser 3 webapp
+- Target awal: browser Android
 - Mode awal: private room dengan kode
 - Durasi target: 2–3 menit
 - Visual awal: placeholder sederhana
-- Server: VPS pribadi melalui subdomain
+- Server: Node.js + WebSocket di VPS melalui subdomain
 
 ## Prinsip pengembangan
 
@@ -26,7 +26,7 @@ Project ini masih berada pada tahap **desain dan persiapan prototype**. Belum ad
 - [`docs/mvp_scope.md`](docs/mvp_scope.md) — batas prototype pertama dan kriteria selesai
 - [`docs/gdd.md`](docs/gdd.md) — visi, pemain, game loop, dan arah jangka panjang
 - [`docs/combat_rules.md`](docs/combat_rules.md) — aturan combat versi prototype
-- [`docs/technical_plan.md`](docs/technical_plan.md) — rencana Godot, server, dan keterbatasan VPS
+- [`docs/technical_plan.md`](docs/technical_plan.md) — rencana Phaser, server, dan keterbatasan VPS
 - [`docs/roadmap.md`](docs/roadmap.md) — fase kerja dan urutan prioritas
 - [`docs/design_decisions.md`](docs/design_decisions.md) — catatan keputusan dan perubahan desain
 - [`characters/osman.md`](characters/osman.md) — karakter Osman

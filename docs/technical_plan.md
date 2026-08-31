@@ -1,16 +1,19 @@
-# 🧱 Technical Plan — Prototype
+# 🧱 Technical Plan — Web Prototype
 
-**Status:** Proposed, perlu divalidasi lewat build percobaan.
+**Status:** Accepted untuk prototype web; detail library dapat berubah setelah spike.
 
 ## Arsitektur awal
 
-- **Client:** Godot 4, scene 2D sederhana, export Android.
-- **Transport:** WebSocket untuk koneksi dua arah.
-- **Server:** service kecil di VPS; satu process mengelola room privat.
+- **Client:** Phaser 3, game 2D yang berjalan di browser HP.
+- **Transport:** WebSocket untuk koneksi realtime dua arah.
+- **Server:** Node.js + library WebSocket di VPS; satu process mengelola room privat.
 - **Routing:** subdomain menuju service melalui reverse proxy dan koneksi aman.
 - **State:** server menjadi sumber kebenaran untuk room, pemain, HP, timer, dan hasil.
+- **Deployment:** webapp disajikan dari VPS dan dibuka melalui browser Android.
 
-Database, akun, matchmaking, dan sistem ranking belum diperlukan.
+Phaser adalah framework JavaScript untuk game 2D browser. WebSocket menjaga koneksi realtime antara dua HP dan server. Node.js sudah tersedia di VPS.
+
+Database, akun, matchmaking, Android native, dan sistem ranking belum diperlukan.
 
 ## Alur room
 
@@ -21,17 +24,21 @@ Database, akun, matchmaking, dan sistem ranking belum diperlukan.
 5. Server mengirim status `waiting`, `ready`, `playing`, `finished`, atau `closed`.
 6. Server memvalidasi input dan mengirim state yang dapat ditampilkan kedua client.
 
+## Fase build
+
+1. Jalankan webapp lokal di VPS.
+2. Uji dari browser VPS/HP.
+3. Pasang reverse proxy dan subdomain.
+4. Aktifkan HTTPS/WSS.
+5. Uji dua HP pada jaringan berbeda.
+
+Godot 4 dan Android native build ditunda. Keduanya dapat dievaluasi kembali jika webapp sudah terbukti menyenangkan atau jika distribusi APK menjadi kebutuhan nyata.
+
 ## Keterbatasan lingkungan
 
-Pengembangan dilakukan dari VPS dan HP, tanpa komputer desktop lokal. Risiko utama adalah Godot editor dan Android export toolchain pada VPS. Sebelum membangun gameplay, lakukan spike kecil:
+Pengembangan dilakukan dari VPS dan HP, tanpa komputer desktop lokal. Webapp dipilih agar tidak membutuhkan Godot editor, Java/JDK, Android SDK, atau export template pada fase awal.
 
-- Godot tersedia dalam mode headless.
-- Android SDK/export template dapat dipasang.
-- APK dapat dibuild di VPS.
-- APK dapat dipindahkan dan dipasang di HP.
-- Server WebSocket dapat diakses melalui subdomain.
-
-Jika spike ini gagal, jangan memaksa seluruh arsitektur. Catat hambatannya dan evaluasi prototype web atau remote desktop sebagai alternatif.
+VPS memiliki RAM sekitar 1.9 GB dan disk terbatas, sehingga dependency harus minimal dan room harus memiliki expiry.
 
 ## Keamanan minimum
 
@@ -48,10 +55,8 @@ Server perlu mencatat timestamp, room ID, event koneksi, error, dan alasan match
 
 ## Keputusan yang masih terbuka
 
-- Bahasa server: Node.js atau Python.
-- Library WebSocket yang digunakan.
-- Apakah server authoritative penuh atau hanya relay pada prototype.
+- Library WebSocket Node.js.
+- Apakah server authoritative penuh atau relay pada prototype.
 - Nama subdomain.
-- Metode distribusi APK dari VPS ke HP.
-
-Keputusan tersebut dibuat setelah spike, bukan diasumsikan di awal.
+- Metode packaging Android di masa depan.
+- Kapan webapp dianggap perlu dibungkus menjadi Android app.
