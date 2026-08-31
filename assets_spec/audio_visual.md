@@ -1,42 +1,51 @@
-# 🎨 Audio & Visual Specification Checklist
+# 🎨 Audio & Visual Specification
 
-Daftar aset minimal yang dibutuhkan untuk tahap prototipe MVP (2 Karakter, 1 Arena).
+**Status:** Rencana asset bertahap. Tidak ada asset final yang wajib untuk MVP.
 
----
+## Prioritas MVP
 
-## 1. Sprite & Animasi Karakter (2D)
+Gunakan asset sementara yang ringan:
 
-### Master Osman:
-* [ ] **Idle:** Gerakan bernafas tegap sambil memutar pisau laser döner (4-6 frames).
-* [ ] **Walk Forward / Backward:** Langkah mantap brawler (6 frames).
-* [ ] **Light Attack (A):** 3 ayunan tebasan cepat (4 frames).
-* [ ] **Heavy Attack (B):** Ayunan daging beku raksasa dari atas ke bawah (6 frames).
-* [ ] **Special Skill (S):** Semprotan saus pedas merah menyala (5 frames).
-* [ ] **Hurt / Damage:** Ekspresi kaget kena hit (2 frames).
-* [ ] **Knockdown / Defeat:** Terkapar di lantai celemek compang-camping (3 frames).
-* [ ] **Ultimate Cutscene Keyframes:** 4 ilustrasi statis untuk sequence pemotongan kebab + ledakan oven.
+- dua bentuk/avatar warna berbeda;
+- satu arena polos;
+- indikator HP dan timer;
+- tombol touchscreen sederhana;
+- efek hit sederhana berupa flash atau perubahan warna.
 
-### Aylin (Debt Collector):
-* [ ] **Idle:** Berdiri anggun menyesuaikan kacamata AR dan posisi blazer (4-6 frames).
-* [ ] **Walk Forward / Backward:** Jalan elegan high-heels dengan percikan api knalpot jet (6 frames).
-* [ ] **Light Attack (A):** Tendangan tumit jet + tamparan map berkas (5 frames).
-* [ ] **Heavy Attack (B):** Hantaman stempel raksasa ke lantai (6 frames).
-* [ ] **Special Skill (S):** Menembakkan kabel EDC & efek setruman listrik (6 frames).
-* [ ] **Hurt / Damage:** Goyah mundur sambil berkas kertas beterbangan (2 frames).
-* [ ] **Knockdown / Defeat:** Duduk tersungkur kacamata retak (3 frames).
-* [ ] **Ultimate Cutscene Keyframes:** 4 ilustrasi statis truk derek, jatuhnya brankas, minum kopi, dan stempel jidat.
+Tujuannya menguji kontrol, koneksi, dan rasa serangan — bukan kualitas artwork.
 
----
+## Asset fase karakter
 
-## 2. Arena / Stage 1: "Atap Markas Pusat Bank Turki (Neo-Istanbul)"
-* [ ] **Background Layer (Jauh):** Siluet gedung pencakar langit cyberpunk, mobil terbang lalu lalang, papan reklame hologram "BUNGA RINGAN 900%".
-* [ ] **Midground Layer:** Menara pemancar satelit bank dan layar LED raksasa siaran langsung turnamen.
-* [ ] **Foreground (Platform):** Lantai helipad kaca dengan logo Bank Turki menyala keemasan.
+### Osman
 
----
+- Idle, walk, attack, hurt, dan defeat sederhana.
+- Ultimate storyboard hanya dibuat setelah ultimate benar-benar masuk roadmap.
 
-## 3. Sound Effects (SFX) & BGM Spec
-* [ ] **BGM Stage 1:** Musik Synthwave bertempo cepat (135 BPM) berpadu melodi Oud / Saz elektrik Timur Tengah masa depan.
-* [ ] **SFX Serangan:** Tebasan pisau laser, hantaman benda tumpul berat daging/stempel, desisan semprotan saus pedas.
-* [ ] **SFX Gadget:** Bip terminal EDC, bunyi tarik kabel reel, sengatan listrik tegangan tinggi.
-* [ ] **SFX Absurd / Comedic:** Efek stempel keras *"JLEB"*, bunyi koin berhamburan *"CHING"*, suara sirene bank panik.
+### Aylin
+
+- Asset dibuat setelah Osman/placeholder terbukti stabil.
+- Prioritas pertama adalah siluet dan keterbacaan serangan, bukan detail kostum.
+
+## Arena
+
+Arena jangka panjang: atap markas Bank Turki di Neo-Istanbul 2088. Untuk prototype gunakan satu background statis tanpa parallax.
+
+## Audio
+
+MVP boleh tanpa audio. Fase berikutnya menambahkan:
+
+- satu loop BGM;
+- satu SFX attack;
+- satu SFX hit;
+- satu feedback KO.
+
+Audio AI atau asset pihak ketiga harus dicatat sumber dan lisensinya.
+
+## Pipeline asset
+
+1. Tulis kebutuhan asset.
+2. Cek prompt library di Obsidian/Notion.
+3. Generate beberapa kandidat.
+4. Pilih asset yang paling terbaca pada layar HP.
+5. Simpan prompt, tool/model, tanggal, dan status lisensi.
+6. Jangan masukkan asset final ke kode sebelum ukuran dan formatnya diuji di Android.
