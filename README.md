@@ -22,6 +22,7 @@ Project ini masih berada pada tahap **desain dan persiapan prototype**. Belum ad
 
 ## Dokumen utama
 
+- [`docs/project_workflow.md`](docs/project_workflow.md) — pembagian peran GitHub, VPS, dan Notion
 - [`docs/mvp_scope.md`](docs/mvp_scope.md) — batas prototype pertama dan kriteria selesai
 - [`docs/gdd.md`](docs/gdd.md) — visi, pemain, game loop, dan arah jangka panjang
 - [`docs/combat_rules.md`](docs/combat_rules.md) — aturan combat versi prototype
@@ -46,4 +47,5 @@ Jangan mengedit konsep secara diam-diam. Tambahkan proposal ke `docs/design_deci
 ## Referensi
 
 - GitHub: https://github.com/Vanderrhud/defol-debt-clash
-- Notion Hub: https://app.notion.com/p/DEFOL-Debt-Clash-GDD-Hub-3cc77ea3e81a813fab44e24cf9c550de
+- **Notion Dashboard:** [DEFOL: Debt Clash](https://app.notion.com/p/3cd77ea3e81a8197bda2e09dab5ed198)
+- **Notion GDD Hub (referensi lama):** [GDD Hub](https://app.notion.com/p/DEFOL-Debt-Clash-GDD-Hub-3cc77ea3e81a813fab44e24cf9c550de)
