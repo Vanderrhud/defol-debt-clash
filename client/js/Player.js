@@ -164,8 +164,8 @@ class Player {
       }
     }
 
-    // Clamp ke arena 800x600 (dengan margin 20px untuk half-width player)
-    this.sprite.x = Phaser.Math.Clamp(this.sprite.x, 20, 780);
+    // Clamp ke arena 960x540 (dengan margin 20px untuk half-width player)
+    this.sprite.x = Phaser.Math.Clamp(this.sprite.x, 20, 940);
 
     // Attack timer: update hitbox position selama attacking
     if (this.state === 'attacking') {

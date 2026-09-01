@@ -1,10 +1,13 @@
 /* global Phaser, Player */
 
+const CANVAS_WIDTH = 960;
+const CANVAS_HEIGHT = 540;
 const DAMAGE_PER_HIT = 10;
 const MATCH_DURATION = 120; // detik
 const HP_BAR_WIDTH = 200;
 const HP_BAR_HEIGHT = 16;
 const HP_BAR_Y = 20;
+const HP_BAR_MARGIN = 60;
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -12,8 +15,8 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
-    // Arena placeholder
-    this.add.rectangle(400, 300, 800, 600, 0x222222);
+    // Arena placeholder — full canvas
+    this.add.rectangle(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT, 0x222222);
 
     // Keyboard input setup
     this.p1Keys = {
@@ -29,16 +32,19 @@ class GameScene extends Phaser.Scene {
       block: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO),
     };
 
-    // Player instances
-    this.player1 = new Player(this, 200, 500, this.p1Keys, 0xff4444, 'p1');
-    this.player2 = new Player(this, 600, 500, this.p2Keys, 0x4444ff, 'p2');
+    // Player instances — proportional positions
+    // P1 starts near left, P2 near right, both at ~83% height (ground level)
+    const playerY = Math.round(CANVAS_HEIGHT * 0.83);
+    this.player1 = new Player(this, 200, playerY, this.p1Keys, 0xff4444, 'p1');
+    this.player2 = new Player(this, CANVAS_WIDTH - 200, playerY, this.p2Keys, 0x4444ff, 'p2');
 
     // Store original colors for flash revert
     this.player1Color = 0xff4444;
     this.player2Color = 0x4444ff;
 
-    // Ground line
-    this.add.line(0, 0, 0, 530, 800, 530, 0x666666);
+    // Ground line — at ~89% height
+    const groundY = Math.round(CANVAS_HEIGHT * 0.89);
+    this.add.line(0, 0, 0, groundY, CANVAS_WIDTH, groundY, 0x666666);
 
     // Match controller
     this.matchController = {
@@ -115,46 +121,48 @@ class GameScene extends Phaser.Scene {
     };
 
     // --- HUD Elements ---
+    const hpBarCenterY = HP_BAR_Y + HP_BAR_HEIGHT / 2;
 
-    // P1 HP Bar (background + fill)
-    this.p1HpBarBg = this.add.rectangle(60, HP_BAR_Y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x333333);
+    // P1 HP Bar (background + fill) — left side
+    this.p1HpBarBg = this.add.rectangle(HP_BAR_MARGIN, hpBarCenterY, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x333333);
     this.p1HpBarBg.setOrigin(0, 0.5);
-    this.p1HpBarFill = this.add.rectangle(60, HP_BAR_Y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0xff4444);
+    this.p1HpBarFill = this.add.rectangle(HP_BAR_MARGIN, hpBarCenterY, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0xff4444);
     this.p1HpBarFill.setOrigin(0, 0.5);
 
     // P1 name label
-    this.add.text(60, HP_BAR_Y - 12, 'P1', { color: '#ff4444', fontSize: '12px', fontFamily: 'monospace' });
+    this.add.text(HP_BAR_MARGIN, HP_BAR_Y - 12, 'P1', { color: '#ff4444', fontSize: '12px', fontFamily: 'monospace' });
 
-    // P2 HP Bar (background + fill)
-    this.p2HpBarBg = this.add.rectangle(540, HP_BAR_Y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x333333);
+    // P2 HP Bar (background + fill) — right side
+    const p2BarX = CANVAS_WIDTH - HP_BAR_MARGIN - HP_BAR_WIDTH;
+    this.p2HpBarBg = this.add.rectangle(p2BarX, hpBarCenterY, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x333333);
     this.p2HpBarBg.setOrigin(0, 0.5);
-    this.p2HpBarFill = this.add.rectangle(540, HP_BAR_Y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x4444ff);
+    this.p2HpBarFill = this.add.rectangle(p2BarX, hpBarCenterY, HP_BAR_WIDTH, HP_BAR_HEIGHT, 0x4444ff);
     this.p2HpBarFill.setOrigin(0, 0.5);
 
     // P2 name label
-    this.add.text(540, HP_BAR_Y - 12, 'P2', { color: '#4444ff', fontSize: '12px', fontFamily: 'monospace' });
+    this.add.text(p2BarX, HP_BAR_Y - 12, 'P2', { color: '#4444ff', fontSize: '12px', fontFamily: 'monospace' });
 
     // HP text overlay
-    this.p1HpText = this.add.text(60 + HP_BAR_WIDTH / 2, HP_BAR_Y + HP_BAR_HEIGHT / 2, '100 / 100', {
+    this.p1HpText = this.add.text(HP_BAR_MARGIN + HP_BAR_WIDTH / 2, hpBarCenterY, '100 / 100', {
       color: '#ffffff', fontSize: '11px', fontFamily: 'monospace',
     }).setOrigin(0.5);
 
-    this.p2HpText = this.add.text(540 + HP_BAR_WIDTH / 2, HP_BAR_Y + HP_BAR_HEIGHT / 2, '100 / 100', {
+    this.p2HpText = this.add.text(p2BarX + HP_BAR_WIDTH / 2, hpBarCenterY, '100 / 100', {
       color: '#ffffff', fontSize: '11px', fontFamily: 'monospace',
     }).setOrigin(0.5);
 
     // Timer (center top)
-    this.timerText = this.add.text(400, HP_BAR_Y, '120', {
+    this.timerText = this.add.text(CANVAS_WIDTH / 2, HP_BAR_Y, '120', {
       color: '#ffffff', fontSize: '24px', fontFamily: 'monospace',
     }).setOrigin(0.5, 0);
 
     // Match result text (center screen, large)
-    this.matchResultText = this.add.text(400, 280, '', {
+    this.matchResultText = this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 20, '', {
       color: '#ffff00', fontSize: '48px', fontFamily: 'monospace', fontStyle: 'bold',
     }).setOrigin(0.5).setVisible(false);
 
     // Rematch button
-    this.rematchButton = this.add.text(400, 340, '[ Rematch ]', {
+    this.rematchButton = this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 40, '[ Rematch ]', {
       color: '#00ff00', fontSize: '24px', fontFamily: 'monospace',
     }).setOrigin(0.5).setVisible(false).setInteractive({ useHandCursor: true });
 
@@ -163,7 +171,7 @@ class GameScene extends Phaser.Scene {
     });
 
     // Exit button
-    this.exitButton = this.add.text(400, 380, '[ Exit ]', {
+    this.exitButton = this.add.text(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 80, '[ Exit ]', {
       color: '#ff6666', fontSize: '24px', fontFamily: 'monospace',
     }).setOrigin(0.5).setVisible(false).setInteractive({ useHandCursor: true });
 
@@ -171,9 +179,10 @@ class GameScene extends Phaser.Scene {
       this.scene.start('GameScene');
     });
 
-    // Controls info
-    this.add.text(80, 560, 'P1: A/D move | J attack | K block', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
-    this.add.text(500, 560, 'P2: ← → move | 1 atk | 2 blk', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
+    // Controls info — near bottom
+    const controlsY = CANVAS_HEIGHT - 40;
+    this.add.text(HP_BAR_MARGIN, controlsY, 'P1: A/D move | J attack | K block', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
+    this.add.text(p2BarX - 20, controlsY, 'P2: ← → move | 1 atk | 2 blk', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
 
     // --- Debug visualization ---
     this.debugMode = false;

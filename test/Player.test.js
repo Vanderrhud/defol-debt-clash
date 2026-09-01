@@ -98,13 +98,13 @@ describe('Player class', () => {
     assert.strictEqual(player.sprite.x, 20, 'Harus clamp ke batas kiri');
   });
 
-  it('should clamp right side to 780', () => {
+  it('should clamp right side to 940', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
     const keys = makeKeys(false, true); // right held
 
-    const player = new Player(scene, 790, 500, keys, 0xff4444, 'p1');
+    const player = new Player(scene, 950, 500, keys, 0xff4444, 'p1');
     player.update(0, 1000);
-    assert.strictEqual(player.sprite.x, 780, 'Harus clamp ke batas kanan');
+    assert.strictEqual(player.sprite.x, 940, 'Harus clamp ke batas kanan');
   });
 });
