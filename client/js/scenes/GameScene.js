@@ -174,6 +174,12 @@ class GameScene extends Phaser.Scene {
     // Controls info
     this.add.text(80, 560, 'P1: A/D move | J attack | K block', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
     this.add.text(500, 560, 'P2: ← → move | 1 atk | 2 blk', { color: '#888', fontSize: '11px', fontFamily: 'monospace' });
+
+    // --- Debug visualization ---
+    this.debugMode = false;
+    this.debugKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F3);
+    this.debugGraphics = this.add.graphics();
+    this.debugGraphics.setDepth(100); // draw on top of everything
   }
 
   /**
@@ -229,6 +235,14 @@ class GameScene extends Phaser.Scene {
       this.matchController.update(delta);
     }
 
+    // Debug mode toggle
+    if (Phaser.Input.Keyboard.JustDown(this.debugKey)) {
+      this.debugMode = !this.debugMode;
+    }
+
+    // Debug draw
+    this.drawDebug();
+
     // Visual feedback: revert flash when not hit
     if (!this.player1.flashRed && this.player1.sprite.fillColor !== this.player1Color) {
       this.player1.sprite.fillColor = this.player1Color;
@@ -239,6 +253,34 @@ class GameScene extends Phaser.Scene {
 
     // Update HUD — always update even when finished
     this.updateHUD();
+  }
+
+  drawDebug() {
+    this.debugGraphics.clear();
+
+    if (!this.debugMode) return;
+
+    // Draw hurtbox for each player (green transparent)
+    const p1Hurt = this.player1.getHurtbox();
+    this.debugGraphics.fillStyle(0x00ff00, 0.3);
+    this.debugGraphics.fillRect(p1Hurt.x, p1Hurt.y, p1Hurt.width, p1Hurt.height);
+
+    const p2Hurt = this.player2.getHurtbox();
+    this.debugGraphics.fillStyle(0x00ff00, 0.3);
+    this.debugGraphics.fillRect(p2Hurt.x, p2Hurt.y, p2Hurt.width, p2Hurt.height);
+
+    // Draw hitbox for each player (red transparent)
+    const p1Hit = this.player1.getHitbox();
+    if (p1Hit) {
+      this.debugGraphics.fillStyle(0xff0000, 0.5);
+      this.debugGraphics.fillRect(p1Hit.x, p1Hit.y, p1Hit.width, p1Hit.height);
+    }
+
+    const p2Hit = this.player2.getHitbox();
+    if (p2Hit) {
+      this.debugGraphics.fillStyle(0xff0000, 0.5);
+      this.debugGraphics.fillRect(p2Hit.x, p2Hit.y, p2Hit.width, p2Hit.height);
+    }
   }
 
   updateHUD() {

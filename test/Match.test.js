@@ -15,7 +15,9 @@ global.Phaser = {
         A: 65, D: 68, J: 74, K: 75,
         LEFT: 37, RIGHT: 39,
         NUMPAD_ONE: 97, NUMPAD_TWO: 98,
+        F3: 114,
       },
+      JustDown() { return false; },
     },
   },
 };
@@ -52,6 +54,14 @@ function createMockAdd() {
       return txt;
     },
     line() { return {}; },
+    graphics() {
+      return {
+        clear() {},
+        fillStyle() {},
+        fillRect() {},
+        setDepth() { return this; },
+      };
+    },
   };
 }
 
