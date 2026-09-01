@@ -1,5 +1,5 @@
 const assert = require('node:assert');
-const { describe, it, mock } = require('node:test');
+const { describe, it } = require('node:test');
 
 // Mock Phaser.Math.Clamp
 global.Phaser = { Math: { Clamp: (v, min, max) => Math.min(Math.max(v, min), max) } };
@@ -15,9 +15,18 @@ function createMockScene() {
   };
 }
 
-// Mock key objects
+// Mock key objects — always include attack and block for the new Player
 function createKeyMock(isDown = false) {
   return { isDown };
+}
+
+function makeKeys(left, right, attack, block) {
+  return {
+    left: createKeyMock(left ?? false),
+    right: createKeyMock(right ?? false),
+    attack: createKeyMock(attack ?? false),
+    block: createKeyMock(block ?? false),
+  };
 }
 
 describe('Player class', () => {
@@ -29,7 +38,7 @@ describe('Player class', () => {
   it('should create a player with initial position', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(), right: createKeyMock() };
+    const keys = makeKeys();
 
     const player = new Player(scene, 200, 500, keys, 0xff4444, 'p1');
     assert.strictEqual(player.sprite.x, 200);
@@ -40,7 +49,7 @@ describe('Player class', () => {
   it('should move right when right key is down', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(false), right: createKeyMock(true) };
+    const keys = makeKeys(false, true); // right held
 
     const player = new Player(scene, 200, 500, keys, 0xff4444, 'p1');
     player.update(0, 1000); // 1 detik delta
@@ -50,7 +59,7 @@ describe('Player class', () => {
   it('should move left when left key is down', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(true), right: createKeyMock(false) };
+    const keys = makeKeys(true, false); // left held
 
     const player = new Player(scene, 500, 500, keys, 0x4444ff, 'p2');
     player.update(0, 1000); // 1 detik delta
@@ -60,7 +69,7 @@ describe('Player class', () => {
   it('should move at ~200 px/s speed', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(false), right: createKeyMock(true) };
+    const keys = makeKeys(false, true); // right held
 
     const player = new Player(scene, 200, 500, keys, 0xff4444, 'p1');
     player.update(0, 500); // 0.5 detik
@@ -71,7 +80,7 @@ describe('Player class', () => {
   it('should not move when no keys are pressed', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(false), right: createKeyMock(false) };
+    const keys = makeKeys(); // all false
 
     const player = new Player(scene, 200, 500, keys, 0xff4444, 'p1');
     player.update(0, 1000);
@@ -81,7 +90,7 @@ describe('Player class', () => {
   it('should clamp position to arena bounds (20-780)', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(true), right: createKeyMock(false) };
+    const keys = makeKeys(true, false); // left held
 
     const player = new Player(scene, 10, 500, keys, 0xff4444, 'p1');
     player.update(0, 1000);
@@ -92,7 +101,7 @@ describe('Player class', () => {
   it('should clamp right side to 780', () => {
     const Player = require('../client/js/Player.js');
     const scene = createMockScene();
-    const keys = { left: createKeyMock(false), right: createKeyMock(true) };
+    const keys = makeKeys(false, true); // right held
 
     const player = new Player(scene, 790, 500, keys, 0xff4444, 'p1');
     player.update(0, 1000);
