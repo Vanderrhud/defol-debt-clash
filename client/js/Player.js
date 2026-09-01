@@ -89,6 +89,28 @@ class Player {
   }
 
   /**
+   * Cek apakah player KO (HP <= 0)
+   * @returns {boolean}
+   */
+  isKO() {
+    return this.hp <= 0;
+  }
+
+  /**
+   * Reset player ke kondisi awal (full HP, idle state)
+   */
+  reset() {
+    this.hp = this.maxHp;
+    this.state = 'idle';
+    this.hitbox = null;
+    this.attackTimer = 0;
+    this.flashRed = false;
+    this.flashTimer = 0;
+    this.hasHit = false;
+    this.facing = (this.name === 'p1') ? 1 : -1;
+  }
+
+  /**
    * Mendapatkan hitbox jika player sedang attacking
    * @returns {{x: number, y: number, width: number, height: number} | null}
    */
